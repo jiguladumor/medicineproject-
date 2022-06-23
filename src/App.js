@@ -18,6 +18,7 @@ import Booklist from './Container/Formik/Booklist';
  
  
  
+ 
 
 
 
@@ -36,6 +37,7 @@ function App() {
            {/* <Private exact path={"/Bookapointment"} component={Booklist}/> */}
            <Private exact path={"/Bookapointment"} component={Booklist} />
            <Private  exact path={"/listapoinment"} component={Listitem}/>
+           
          </Switch>
          
 

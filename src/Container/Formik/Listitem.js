@@ -1,7 +1,13 @@
-
 import React, { useEffect, useState } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
-import { ButtonToggle } from 'reactstrap';
+import { ButtonToggle } from 'reactstrap'; 
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 
 
 function Listitem(props) {
@@ -12,19 +18,21 @@ function Listitem(props) {
    let history =useHistory();
     
 
-  const localData = () => {
-    let localData = JSON.parse(localStorage.getItem("booklist"));
+  const loadData = () => {
+    let localData = JSON.parse(localStorage.getItem("booklist")); 
+    // if(localData !== null) {
+      setdata(localData);
+    // }
 
-    setdata(localData);
+   
   }
 
    const  handledelet = (id) => {
           
-        let localData= JSON.parse( localStorage.getItem('booklist')) ; 
+        let localData = JSON.parse( localStorage.getItem('booklist')) ; 
          let ddata= localData.filter( (l,i) =>l.id!==id)
          localStorage.setItem("booklist", JSON.stringify(ddata));
-
-       localData();
+         loadData()
 
         // console.log(localData,idata);
     
@@ -36,11 +44,11 @@ function Listitem(props) {
 
   useEffect(() => {
 
-    localData();
+    loadData();
 
   }, [])
 
-  return (
+  return(
 
     <section id="appointment" className="appointment">
       <div className="container">
@@ -65,31 +73,51 @@ function Listitem(props) {
       </div>
 
        
-       <table border='2'> 
-            <tr>
-                <th>
-                  <td>name</td>
-                </th>
-            </tr>
+       
+   
+      
 
-       </table>
+<Card sx={{ maxWidth: 345  }}>
+     
+     
+      <CardContent>
+       
+        
+      </CardContent>
       {
         data.map((d, i) => {
           return (
             <>
             
-               {/* <h4>{d.name}</h4> */}
-               <td>{d.name}</td>
+                  
+               <Typography gutterBottom variant="h5" component="div">
+               { <h4>{d.name}</h4> } 
+              </Typography>
+                
 
-               <button onClick={() => handledelet (d.id)}> DELET</button>
-               <button onClick={() => handleEdit (d.id)}> EDIT</button>
+               {/* <button onClick={() => handledelet (d.id)}> DELET</button>
+               <button > EDIT</button>  */}
+               <Button   onClick={() => handledelet (d.id)}  variant="contained" color="primary">
+                        DELET
+              </Button>
+
+              <Button  onClick={() => handleEdit (d.id)}   variant="contained" color="warning">
+                        EDIT
+              </Button>
 
               </>
                
           )
         })
       }
-    </section>
+      <CardActions> 
+
+                 
+    
+      </CardActions>
+    </Card>
+    </section> 
+    
   );
 }
 

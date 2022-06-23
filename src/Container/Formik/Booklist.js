@@ -30,10 +30,37 @@ function Booklist(props) {
     history.push("/listapoinment");
   };
 
+      // CAN YOU HANDLEUPDATE DATA
+      
+      const handleupdatedata = (values) => { 
+          let  localData=  JSON.parse(localStorage.getItem("booklist"));
+          // console.log(localData);
 
-  useEffect(() => {
-    if (props.location.state) { 
-      let localData = JSON.parse(localStorage.getItem('booklist'));
+          let udata = localData.map( (l) => {
+             if (l.id === values.id) 
+                  {
+                    return values
+                  }
+                  else{
+                     return l
+                  } 
+                 
+          })  
+           localStorage.setItem("booklist" ,JSON.stringify(udata)); 
+           setupdate(false);
+           formik.resetForm();
+           history.push("/listapoinment");
+              
+          
+
+          //  console.log(udata);
+         
+      }
+
+  useEffect(() => { 
+    let localData = JSON.parse(localStorage.getItem('booklist'));
+    if ( localData !==  null && props.location.state) { 
+        //  let localData = JSON.parse(localStorage.getItem('booklist'));
       let fdata = localData.filter((l) => l.id === props.location.state.id);
       formik.setValues(fdata[0]);
       setupdate(true);
@@ -65,7 +92,12 @@ function Booklist(props) {
     initialValues: initVal,
     validationSchema: schema,
     onSubmit: (values) => {
-      handleInsert(values)
+        if(update) {
+           handleupdatedata(values)
+        }
+        else {
+           handleInsert(values)
+        }
 
 
     }
@@ -98,7 +130,7 @@ function Booklist(props) {
         </div>
 
         <Formik values={formik}>
-          <Form className="php-email-form" onClick={handleSubmit} onChange={onchange}>
+          <Form className="php-email-form" onSubmit={handleSubmit}>
             <div className="row">
               <div className="col-md-4 form-group">
                 <Inputbox type="text"
@@ -108,7 +140,7 @@ function Booklist(props) {
                   placeholder="Your Name"
                   error={Boolean(errors.name && touched.name)}
                   errorMessage={errors.name}
-                  value={values.name}
+                   value={values.name}
                   onBlur={handleBlur}
                   onChange={handleChange}
 
@@ -190,10 +222,11 @@ function Booklist(props) {
               <div className="sent-message">Your appointment request has been sent successfully. Thank you!</div>
             </div>
             {
-              update ? (<div className='text-center'><button type='submit' className="text-center appointment-btn text-center" >update  an appoinment</button></div>)
+              update ? 
+               ( <div className='text-center'><button type='submit' className="text-center appointment-btn text-center" >update  an appoinment</button></div>) 
 
                 :
-                (<div className='text-center'><button type='submit' className="text-center appointment-btn text-center" >maker an appoinment</button></div>)
+                ( <div className='text-center'><button type='submit' className="text-center appointment-btn text-center" >maker an appoinment</button></div>)
             }
 
           </Form>
