@@ -16,6 +16,7 @@ import Listitem from './Container/Formik/Listitem';
 import Booklist from './Container/Formik/Booklist';
 import { Provider } from 'react-redux'
 import { configure } from './Redux/Store';
+import { ThemeContext } from './Context_api/ThemeContext';
 
 
 
@@ -28,6 +29,7 @@ function App() {
    const store= configure();
   return (
     <>
+      <ThemeContext.Provider>
       <Provider store= {store}>
         <Header />
         <Switch>
@@ -49,6 +51,7 @@ function App() {
 
         <Footer />
       </Provider>
+      </ThemeContext.Provider>
     </>
   );
 }
