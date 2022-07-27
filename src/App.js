@@ -16,7 +16,7 @@ import Listitem from './Container/Formik/Listitem';
 import Booklist from './Container/Formik/Booklist';
 import { Provider } from 'react-redux'
 import { configure } from './Redux/Store';
-import { ThemeContext } from './Context_api/ThemeContext';
+import { ThemeContext, ThemeProvider } from './Context_api/ThemeContext';
 
 
 
@@ -25,33 +25,28 @@ import { ThemeContext } from './Context_api/ThemeContext';
 
 
 
-function App() { 
-   const store= configure();
+function App() {
+  const store = configure();
   return (
     <>
-      <ThemeContext.Provider>
-      <Provider store= {store}>
-        <Header />
-        <Switch>
-          <PublicRoute exact path={"/"} component={Home} />
-          <PublicRoute exact path={"/departments"} component={Department} />
-          <PublicRoute exact path={"/doctor"} component={Doctor} />
-          <PublicRoute exact path={"/about"} component={About} />
-          <PublicRoute exact path={"/contact"} component={Contact} />
-          <Private exact path={"/data"} component={card} />
-          <PublicRoute restricted={true} exact path={"/primary"} component={Auth} />
-          {/* <Private exact path={"/Bookapointment"} component={Booklist}/> */}
-          <Private exact path={"/Bookapointment"} component={Booklist} />
-          <Private exact path={"/listapoinment"} component={Listitem} />
-
-        </Switch>
-
-
-
-
-        <Footer />
-      </Provider>
-      </ThemeContext.Provider>
+      <ThemeProvider>
+        <Provider store={store}>
+          <Header />
+          <Switch>
+            <PublicRoute exact path={"/"} component={Home} />
+            <PublicRoute exact path={"/departments"} component={Department} />
+            <PublicRoute exact path={"/doctor"} component={Doctor} />
+            <PublicRoute exact path={"/about"} component={About} />
+            <PublicRoute exact path={"/contact"} component={Contact} />
+            <Private exact path={"/data"} component={card} />
+            <PublicRoute restricted={true} exact path={"/primary"} component={Auth} />
+            {/* <Private exact path={"/Bookapointment"} component={Booklist}/> */}
+            <Private exact path={"/Bookapointment"} component={Booklist} />
+            <Private exact path={"/listapoinment"} component={Listitem} />
+          </Switch>
+          <Footer />
+        </Provider>
+      </ThemeProvider>
     </>
   );
 }

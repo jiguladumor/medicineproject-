@@ -1755,10 +1755,10 @@ section {
 
 
 .light{
-  background-color: white;
-  color: #111;
+  background-color: rgb(163, 241, 7) !important;
+  color: rgb(216, 29, 29) !important;
 }
 .dark{
-  background-color: black;
-  color: white;
+  background-color: rgb(0, 0, 0) !important;
+  color: rgb(255, 255, 255) !important;
 }
