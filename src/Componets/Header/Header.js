@@ -7,6 +7,7 @@ import ThemeContext from '../../Context_api/ThemeContext';
 
 function Header(props) {  
   const theme = useContext(ThemeContext);
+  console.log(theme);
     return (
     <div className="main-header">
   <div id="topbar" className= {`d-flex align-items-center fixed-top ${theme.theme}`}>

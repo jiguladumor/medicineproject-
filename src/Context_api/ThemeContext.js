@@ -4,6 +4,13 @@ import { createContext } from "react";
 import { themeReducer, toggle_theme } from "./reducer/theme_reducer";
 import * as  Actiontypes from './reducer/Actiontypes';
 
+ 
+ 
+// import { useReducer } from "react";
+// import { createContext } from "react";
+// import themeReducer from"./reducer/theme_reducer";
+// import * as Actiontypes from'./reducer/Actiontypes';
+
 
 const ThemeContext = createContext();
 
@@ -20,10 +27,6 @@ export const ThemeProvider = ({ children }) => {
         const newTheme = theme === 'light' ? 'dark' : 'light';
         dispatch({ type: Actiontypes.TOGGLE_THEME, payload: newTheme });
     }
-
-
-
-
     return (
         <>
             <ThemeContext.Provider
@@ -41,3 +44,5 @@ export const ThemeProvider = ({ children }) => {
 }
 
 export default ThemeContext;
+
+
