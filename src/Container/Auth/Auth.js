@@ -1,10 +1,16 @@
 import React, { useState } from 'react';
 import * as yup from 'yup';
 import { Form, Formik, useFormik } from 'formik';
+import { useDispatch } from 'react-redux'
+
+
 
 function Auth(props) {
     const [userType, setUserType] = useState('Login')
     const [reset, setReset] = useState(false)
+   
+    const dispatch = useDispatch()
+
 
     const handletLogin = (values) => {
         sessionStorage.setItem("user","123456");
@@ -83,7 +89,12 @@ function Auth(props) {
                 handleSignup(values)
             } else if (reset) {
                 handlepassword(values)
-            }
+            } 
+             const data = {
+                email:"",
+                password:""
+             }
+            dispatch({Signup,data})
             resetForm();
         }
     })
