@@ -7,6 +7,7 @@ import { emailVerifyAction } from '../Redux/Action/AuthAction';
  
 function* Signup(action) {
    try {
+       
       const user = yield call(SignUpAPI, action.payload);
       yield put(emailVerifyAction(user));
    } catch (e) {

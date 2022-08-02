@@ -1,6 +1,7 @@
 import  * as Actiontypes from'../Actiontypes'; 
  
 export const  signup = (dispatch) => (data) => {
+    console.log(data);
     dispatch({type:Actiontypes.SIGNUP,payload:data})
 }
 

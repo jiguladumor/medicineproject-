@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import * as yup from 'yup';
 import { Form, Formik, useFormik } from 'formik';
 import { useDispatch } from 'react-redux'
+import { SignUpAPI } from '../../Common/SignUpapi';
 
 
 
@@ -14,9 +15,7 @@ function Auth(props) {
 
     const handletLogin = (values) => {
         sessionStorage.setItem("user","123456");
-        alert(JSON.stringify(values, null, 2));
-        
-
+        // alert(JSON.stringify(values, null, 2));
     }
 
     const handleSignup = (values) => {
@@ -29,7 +28,7 @@ function Auth(props) {
             localStorage.setItem("users", JSON.stringify([values]));
         } else {
             data.push(values);
-            localStorage.setItem("users", JSON.stringify(data));
+            localStorage.setItem("users",JSON.stringify(data));
         }
         // data.push(values);
         // console.log(data);
@@ -57,7 +56,7 @@ function Auth(props) {
 
     let schema, initVal;
 
-    console.log(reset);
+    // console.log(reset);
     if (userType === "Login" && !reset) {
         schema = yup.object().shape(Login);
         initVal = {
@@ -90,17 +89,18 @@ function Auth(props) {
             } else if (reset) {
                 handlepassword(values)
             } 
-             const data = {
-                email:"",
-                password:""
-             }
-            dispatch({Signup,data})
             resetForm();
+             let data = {
+                email:values.email,
+                password:values.password
+             }
+            dispatch(SignUpAPI(data))
+           
         }
     })
 
 
-    console.log(formik.errors);
+    // console.log(formik.errors);
 
     return (
         <section id="appointment" className="appointment d-flex">
