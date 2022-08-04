@@ -1,10 +1,11 @@
-import  * as Actiontypes from'../Actiontypes'; 
+import  * as actiontypes from'../Actiontypes'; 
  
-export const  signup = (dispatch) => (data) => {
-    console.log(data);
-    dispatch({type:Actiontypes.SIGNUP,payload:data})
+export const  signupAction= (dispatch) => (data) => {
+    // console.log(data);
+    dispatch({type:actiontypes.SIGNUP,payload:data})
 }
 
 export const emailVerifyAction = (dispatch) => (data) =>  {
-    dispatch({type:Actiontypes.EMAILVARIFY , payload:data})
+    dispatch({type:actiontypes.EMAILVARIFY , payload:data})
 }
+

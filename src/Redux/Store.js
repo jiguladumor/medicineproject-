@@ -13,7 +13,8 @@ const middleware =[
 ]
 export const configure = () => {
      let store = createStore (rootReducer , applyMiddleware(...middleware) )
-       return store ;  
+       
 
        sagaMiddleware.run(rootSaga)
+       return store ;  
  }

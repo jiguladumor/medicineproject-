@@ -1,6 +1,9 @@
 import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import ThemeContext from '../../Context_api/ThemeContext';
+import Alert from '../Alert/Alert';
+ 
+import alert from'../Alert/Alert';
 
 
  
@@ -78,6 +81,7 @@ function Header(props) {
         <span className="d-none d-md-inline">Login/Signup</span> 
         </NavLink>
       </a>
+        <Alert/>
     </div>
   </header>
 </div> 

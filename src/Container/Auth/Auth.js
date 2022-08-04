@@ -3,40 +3,43 @@ import * as yup from 'yup';
 import { Form, Formik, useFormik } from 'formik';
 import { useDispatch } from 'react-redux'
 import { SignUpAPI } from '../../Common/SignUpapi';
+import { signupAction } from '../../Redux/Action/AuthAction';
 
 
 
 function Auth(props) {
     const [userType, setUserType] = useState('Login')
     const [reset, setReset] = useState(false)
-   
+
     const dispatch = useDispatch()
-
-
     const handletLogin = (values) => {
-        sessionStorage.setItem("user","123456");
+        // sessionStorage.setItem("user","123456");
         // alert(JSON.stringify(values, null, 2));
     }
 
     const handleSignup = (values) => {
-
-        const data = JSON.parse(localStorage.getItem("users"));
-
-        console.log(data);
-
-        if (data === null) {
-            localStorage.setItem("users", JSON.stringify([values]));
-        } else {
-            data.push(values);
-            localStorage.setItem("users",JSON.stringify(data));
+        let data = {
+            email: values.email,
+            password: values.password
         }
+        dispatch(signupAction(values))
+        // const data = JSON.parse(localStorage.getItem("users"));
+
+        // // console.log(data);
+
+        // if (data === null) {
+        //     localStorage.setItem("users", JSON.stringify([values]));
+        // } else {
+        //     data.push(values);
+        //     localStorage.setItem("users",JSON.stringify(data));
+        // }
         // data.push(values);
         // console.log(data);
         // localStorage.setItem("users", JSON.stringify(values));
-        alert(JSON.stringify(values, null, 2));
+        // alert(JSON.stringify(values, null, 2));
     }
     const handlepassword = (values) => {
-        alert(JSON.stringify(values.email));
+        // alert(JSON.stringify(values.email));
     }
 
     let Login = {
@@ -88,14 +91,11 @@ function Auth(props) {
                 handleSignup(values)
             } else if (reset) {
                 handlepassword(values)
-            } 
+            }
             resetForm();
-             let data = {
-                email:values.email,
-                password:values.password
-             }
-            dispatch(SignUpAPI(data))
-           
+
+
+
         }
     })
 
@@ -200,7 +200,7 @@ function Auth(props) {
                                         userType === 'Login' ?
                                             <div className='text-center mt-5'>
                                                 <span>create a New account</span>
-                                                <a onClick={() => {setUserType('Signup') }}>signup</a> <br></br>
+                                                <a onClick={() => { setUserType('Signup') }}>signup</a> <br></br>
                                                 <a className='mt-3' onClick={() => { setReset(true) }}>Forget password</a>
                                             </div> :
                                             <div className='text-center mt-5'>
