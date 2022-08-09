@@ -8,7 +8,7 @@ export const SignUpAPI = (values) => {
     console.log(values);
 
     return new Promise((resolve, reject) => {
-        try {
+    
             createUserWithEmailAndPassword(auth, values.email, values.password)
                 .then((userCredential) => {
                     // Signed in 
@@ -42,12 +42,15 @@ export const SignUpAPI = (values) => {
                     const errorCode = error.code;
                     console.log(errorCode, "errorcode");
                     const errorMessage = error.message;
+                    if(errorCode.localeCompare("auth/email-already-in-use") === 0 ){
+                        reject({payload:"email id already registared"});
+                    }
+                    else{
+                        reject({payload:errorCode});
+                    }
                     // ..
-                    reject({ payload: errorCode })
+                    
                 });
-        } catch (error) {
-
-        }
-
-    })
+        }  
+     )
 }

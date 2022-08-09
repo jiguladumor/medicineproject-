@@ -15,9 +15,9 @@ function* Signup(action) {
       //   yield put(emailVerifyAction(user));
 
    } catch (e) {
-     
+      
        yield put(SetAlert({ text: e.payload, color: "error" }));
-       yield put({type: "USER_FETCH_FAILED", message: e.message});
+      //  yield put({type: "USER_FETCH_FAILED", message: e.message});
       console.log(e);
    }
 }
