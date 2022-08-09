@@ -3,7 +3,7 @@ import * as yup from 'yup';
 import { Form, Formik, useFormik } from 'formik';
 import { useDispatch } from 'react-redux'
 import { SignUpAPI } from '../../Common/SignUpapi';
-import { signupAction } from '../../Redux/Action/AuthAction';
+import { LoginAction, signupAction } from '../../Redux/Action/AuthAction';
 
 
 
@@ -13,6 +13,8 @@ function Auth(props) {
 
     const dispatch = useDispatch()
     const handletLogin = (values) => {
+        // console.log(values);
+         dispatch(LoginAction(values));
         // sessionStorage.setItem("user","123456");
         // alert(JSON.stringify(values, null, 2));
     }
@@ -88,6 +90,7 @@ function Auth(props) {
         initialValues: initVal,
         validationSchema: schema,
         onSubmit: (values, { resetForm }) => {
+            console.log(values);
             if (userType === "Login" && !reset) {
                 handletLogin(values)
             } else if (userType === "Signup" && !reset) {
@@ -136,6 +139,7 @@ function Auth(props) {
 
                                             <div className="validate" />
                                         </div>
+                                    
                                 }
                                 <div className="col-md-7 form-group mt-3 mt-md-0">
                                     <input

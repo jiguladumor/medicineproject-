@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, onAuthStateChanged, sendEmailVerification } from "firebase/auth";
+import { createUserWithEmailAndPassword, onAuthStateChanged, sendEmailVerification, signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 import { alert } from "../Redux/Action/alertAction";
 
@@ -6,6 +6,8 @@ export const SignUpAPI = (values) => {
     // fire base exention  
 
     console.log(values);
+
+
 
     return new Promise((resolve, reject) => {
     
@@ -53,4 +55,27 @@ export const SignUpAPI = (values) => {
                 });
         }  
      )
+}
+
+export const LoginApi = (values)  => { 
+    return new Promise((resolve, reject) => {
+        signInWithEmailAndPassword(auth, values.email, values.password) 
+            .then((user) => {
+                console.log(user);
+                if(user.user.emailVerified){
+                    resolve({payload :"login is succefull"})
+                }
+                else{
+                    reject({payload:"plz verifired email"})
+                }
+        
+            }).catch((error) => {
+                console.log(error); 
+                
+                
+            })
+       
+      
+        })
+ 
 }

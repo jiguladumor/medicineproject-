@@ -11,3 +11,8 @@ export const emailVerifyAction = (values) => (dispatch) => {
     dispatch({ type: Actiontypes.EMAILVARIFY, payload: values })
 }
 
+// login user
+export const LoginAction = (values) => (dispatch) => {
+    dispatch({type:Actiontypes.LOGIN_USER,payload:values})
+}
+
