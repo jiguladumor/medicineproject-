@@ -15,9 +15,11 @@ import Private from './Route/Private/Private';
 import Listitem from './Container/Formik/Listitem';
 import Booklist from './Container/Formik/Booklist';
 import { Provider } from 'react-redux'
-import { configure } from './Redux/Store';
+// import store, { configure } from './Redux/Store';
 import { ThemeContext, ThemeProvider } from './Context_api/ThemeContext';
 import { SnackbarProvider } from 'notistack';
+import { store } from './Redux/Store';
+
 
 
 
@@ -27,9 +29,9 @@ import { SnackbarProvider } from 'notistack';
 
 
 function App() {
-  const store = configure();
+  // const store = configure();
   return (
-    <>
+    <>  
       <SnackbarProvider  >
         <ThemeProvider>
           <Provider store={store}>

@@ -18,11 +18,14 @@ function Auth(props) {
     }
 
     const handleSignup = (values) => {
-        let data = {
-            email: values.email,
-            password: values.password
-        }
-        dispatch(signupAction(values))
+        console.log(values);
+        //  console.log(values);
+        // let data = {
+        //     email: values.email,
+        //     password: values.password
+        // }
+        dispatch(signupAction(values));
+
         // const data = JSON.parse(localStorage.getItem("users"));
 
         // // console.log(data);
@@ -88,18 +91,15 @@ function Auth(props) {
             if (userType === "Login" && !reset) {
                 handletLogin(values)
             } else if (userType === "Signup" && !reset) {
+
                 handleSignup(values)
+                
             } else if (reset) {
                 handlepassword(values)
             }
             resetForm();
-
-
-
         }
     })
-
-
     // console.log(formik.errors);
 
     return (
@@ -129,9 +129,7 @@ function Auth(props) {
                                                 onChange={formik.handleChange}
                                                 value={formik.values.name}
                                                 onBlur={formik.handleBlur}
-
                                             />
-
                                             {
                                                 formik.errors.name && formik.touched.name ? <p>{formik.errors.name}</p> : ''
                                             }
