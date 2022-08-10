@@ -18,7 +18,8 @@ import { Provider } from 'react-redux'
 // import store, { configure } from './Redux/Store';
 import { ThemeContext, ThemeProvider } from './Context_api/ThemeContext';
 import { SnackbarProvider } from 'notistack';
-import { store } from './Redux/Store';
+import { persistor, store  } from './Redux/Store';
+import { PersistGate } from 'redux-persist/integration/react'
 
 
 
@@ -35,6 +36,7 @@ function App() {
       <SnackbarProvider  >
         <ThemeProvider>
           <Provider store={store}>
+          <PersistGate persistor={persistor}>
             <Header />
             <Switch>
               <PublicRoute exact path={"/"} component={Home} />
@@ -49,6 +51,7 @@ function App() {
               <Private exact path={"/listapoinment"} component={Listitem} />
             </Switch>
             <Footer />
+            </PersistGate>
           </Provider>
         </ThemeProvider>
       </SnackbarProvider>

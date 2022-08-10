@@ -16,3 +16,10 @@ export const LoginAction = (values) => (dispatch) => {
     dispatch({type:Actiontypes.LOGIN_USER,payload:values})
 }
 
+
+export const Loggieuser = (values) =>(dispatch) => { 
+    dispatch({type:Actiontypes.SIGNEED_USER,payload:values})
+}
+
+ 
+

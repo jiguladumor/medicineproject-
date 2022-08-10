@@ -63,15 +63,25 @@ export const LoginApi = (values)  => {
             .then((user) => {
                 console.log(user);
                 if(user.user.emailVerified){
-                    resolve({payload :"login is succefull"})
+                    resolve({payload :user.user})
                 }
                 else{
                     reject({payload:"plz verifired email"})
                 }
         
             }).catch((error) => {
-                console.log(error); 
-                
+                console.log(error);  
+
+                if(error.code.localeCompare("auth/user-not-found") === 0 ) {
+                    reject({payload:"plz  email registred"})
+                }  
+                else if (error.code.localeCompare("auth/wrong-password")===0){
+                            reject({payload:" wrong email or password"})
+                }
+                else{
+                    reject({payload:error.code});
+                }
+                     
                 
             })
        

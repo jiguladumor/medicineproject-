@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import ThemeContext from '../../Context_api/ThemeContext';
 import Alert from '../Alert/Alert';
+import { useSelector } from 'react-redux';
  
 import alert from'../Alert/Alert';
 
@@ -10,7 +11,10 @@ import alert from'../Alert/Alert';
 
 function Header(props) {  
   const theme = useContext(ThemeContext);
-  console.log(theme);
+  // console.log(theme); 
+
+  let auth = useSelector(state => state.auth)
+  console.log(auth);
     return (
     <div className="main-header">
   <div id="topbar" className= {`d-flex align-items-center fixed-top ${theme.theme}`}>
@@ -76,10 +80,21 @@ function Header(props) {
            </NavLink>
          </a>
       <a href="#" className="appointment-btn scrollto">
+        {
+           auth.user === null ?  
+           <NavLink className="nav-link scrollto" to={"/primary"}> 
+           <span className="d-none d-md-inline">Login/Signup</span> 
+           </NavLink> 
+           :
+           <NavLink className="nav-link scrollto" to={"/primary"}> 
+           <span className="d-none d-md-inline">logout</span> 
+           </NavLink> 
+
+
+        }
         {/* <span className="d-none d-md-inline">Login/ Signup</span> */}
-        <NavLink className="nav-link scrollto" to={"/primary"}> 
-        <span className="d-none d-md-inline">Login/Signup</span> 
-        </NavLink>
+   
+
       </a>
         <Alert/>
     </div>

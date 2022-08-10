@@ -11,3 +11,8 @@ export const  RESET_ALERT ="RESET_ALERT"
 //  login process
 
 export const LOGIN_USER ="LOGIN_USER"
+
+
+// sigged user 
+
+export const SIGNEED_USER= "SIGNEED_USER"
