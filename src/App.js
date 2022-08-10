@@ -36,7 +36,7 @@ function App() {
       <SnackbarProvider  >
         <ThemeProvider>
           <Provider store={store}>
-          <PersistGate persistor={persistor}>
+          <PersistGate loading={null} persistor={persistor}>
             <Header />
             <Switch>
               <PublicRoute exact path={"/"} component={Home} />

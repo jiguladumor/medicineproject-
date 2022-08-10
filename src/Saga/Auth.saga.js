@@ -28,9 +28,9 @@ function* loginup(action) {
       const user = yield call(LoginApi, action.payload);
         console.log(user);
         yield put(Loggieuser(user.payload));
-      
+        history.push("/");
        yield put(SetAlert({ text: "login successfull", color: "success" }));
-       history.push("/");
+     
           
 
    } catch (e) {
