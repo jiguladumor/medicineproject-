@@ -1,8 +1,8 @@
 import { call, put, takeEvery, all } from 'redux-saga/effects'
-import { SignUpAPI, LoginApi, LogoutApi, SigninGoogleApi } from '../Common/SignUpapi';
+import { SignUpAPI, LoginApi, LogoutApi, SigninGoogleApi, ResetApi } from '../Common/SignUpapi';
 
 import * as Actiontypes from '../Redux/Actiontypes'
-import { emailVerifyAction, Loggieuser, Loggoutuser } from '../Redux/Action/AuthAction';
+import { emailVerifyAction, Loggieuser, Loggoutuser, ResetPassword } from '../Redux/Action/AuthAction';
 import { RestateAlert, SetAlert } from '../Redux/Action/alertAction';
 import History from '../history';
 
@@ -72,6 +72,15 @@ function* Signgoogle(action) {
    }
 }
 
+ function*  ResetIn() {
+   try{
+       const user = yield call(ResetApi);
+       
+   }
+   catch(e){
+
+   }
+ }
 
 //  login
 function* watchsignup() {
@@ -97,6 +106,10 @@ function* Signingoogle() {
    yield takeEvery(Actiontypes.SIGNIN_GOOGLE, Signgoogle);
 }
 
+function* ForgetPassword() {
+   yield takeEvery(Actiontypes.FORGET_PASSWORD, ResetIn)
+}
+
 
 export function* authSaga() {
    console.log("authSaga");
@@ -104,7 +117,8 @@ export function* authSaga() {
       watchsignup(),
       Loginwatchup(),
       loggoutwatchup(),
-      Signingoogle()
+      Signingoogle(),
+      ForgetPassword()
    ])
 
 

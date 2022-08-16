@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, onAuthStateChanged, sendEmailVerification, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
+import { createUserWithEmailAndPassword, onAuthStateChanged, sendEmailVerification, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
 import { auth } from "../firebase";
 import { alert } from "../Redux/Action/alertAction";
 import { GoogleAuthProvider } from "firebase/auth";
@@ -112,7 +112,7 @@ export const LogoutApi = (values) => {
 
 // sign in google api process 
 
-export const SigninGoogleApi = () => { 
+export const SigninGoogleApi = () => {
 
     return new Promise((resolve, reject) => {
         const provider = new GoogleAuthProvider();
@@ -122,8 +122,8 @@ export const SigninGoogleApi = () => {
                 const credential = GoogleAuthProvider.credentialFromResult(result);
                 const token = credential.accessToken;
                 // The signed-in user info.
-                const user = result.user; 
-                resolve ({payload :user})
+                const user = result.user;
+                resolve({ payload: user })
                 console.log(user);
                 // ...
             }).catch((error) => {
@@ -135,8 +135,29 @@ export const SigninGoogleApi = () => {
                 // The AuthCredential type that was used.
                 const credential = GoogleAuthProvider.credentialFromError(error);
                 // ...
-                reject({payload:error.code})
+                reject({ payload: error.code })
             });
 
+    })
+}
+
+
+export const ResetApi = (values) => {
+    return new Promise((resolve, reject) => {
+
+        sendPasswordResetEmail(auth, values.email)
+            .then((user) => {
+                 
+                resolve({ payload: user })
+                console.log(user);
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.log(error);
+                reject({ payload: error.code });
+
+                // ..
+            });
     })
 }

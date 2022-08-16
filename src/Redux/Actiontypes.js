@@ -25,3 +25,8 @@ export const SIGNIN_GOOGLE = "SIGNIN_GOOGLE"
 export const LOGGOUT = "LOGGOUT" 
 
 export const LOGGOUTUSER = "LOGGOUTUSER"
+
+
+// forget password
+
+export const FORGET_PASSWORD = "FORGET_PASSWORD"

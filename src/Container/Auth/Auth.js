@@ -3,7 +3,7 @@ import * as yup from 'yup';
 import { Form, Formik, useFormik } from 'formik';
 import { useDispatch } from 'react-redux'
 import { SignUpAPI } from '../../Common/SignUpapi';
-import { LoginAction, Signin_Google, signupAction } from '../../Redux/Action/AuthAction';
+import { LoginAction, ResetPassword, Signin_Google, signupAction } from '../../Redux/Action/AuthAction';
 
 
 
@@ -51,7 +51,8 @@ function Auth(props) {
         // alert(JSON.stringify(values, null, 2));
     }
     const handlepassword = (values) => {
-        // alert(JSON.stringify(values.email));
+        // alert(JSON.stringify(values.email)); 
+        dispatch(ResetPassword(values))
     }
 
     let Login = {
@@ -86,7 +87,7 @@ function Auth(props) {
             password: ''
         }
     } else if (reset) {
-        console.log(reset);
+        // console.log(reset);
         schema = yup.object().shape(Password);
         initVal = {
             email: ''

@@ -42,3 +42,14 @@ export const Loggout = () =>(dispatch) => {
           dispatch({type:Actiontypes.LOGGOUTUSER})
   }
 
+
+
+//   reset password 
+
+export const ResetPassword = (values) => (dispatch) => {
+    dispatch({
+        type:Actiontypes.FORGET_PASSWORD
+       ,payload:values
+    
+    })
+}
