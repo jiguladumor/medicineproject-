@@ -15,4 +15,13 @@ export const LOGIN_USER ="LOGIN_USER"
 
 // sigged user 
 
-export const SIGNEED_USER= "SIGNEED_USER"
+export const SIGNEED_USER= "SIGNEED_USER" 
+
+// sign in google 
+
+export const SIGNIN_GOOGLE = "SIGNIN_GOOGLE"
+
+//loggout
+export const LOGGOUT = "LOGGOUT" 
+
+export const LOGGOUTUSER = "LOGGOUTUSER"

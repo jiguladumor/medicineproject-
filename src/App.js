@@ -2,7 +2,7 @@
 import Header from './Componets/Header/Header';
 import Footer from './Componets/Footer/Footer';
 import Home from './Container/Home';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Router, Switch } from 'react-router-dom';
 import Department from './Container/Department/Department';
 import Doctor from './Container/Doctor/Doctor';
 import About from './Container/About/About';
@@ -20,41 +20,40 @@ import { ThemeContext, ThemeProvider } from './Context_api/ThemeContext';
 import { SnackbarProvider } from 'notistack';
 import { persistor, store  } from './Redux/Store';
 import { PersistGate } from 'redux-persist/integration/react'
-
-
-
-
-
-
-
-
-
+import { useHistory } from 'react-router-dom'
+import { createBrowserHistory } from 'history';
 function App() {
+
+  const historyInstance = createBrowserHistory();
+
+    const history = useHistory();
   // const store = configure();
   return (
     <>  
+    <Router  history={historyInstance} forceRefresh={true}>
       <SnackbarProvider  >
         <ThemeProvider>
           <Provider store={store}>
           <PersistGate loading={null} persistor={persistor}>
             <Header />
             <Switch>
-              <PublicRoute exact path={"/"} component={Home} />
-              <PublicRoute exact path={"/departments"} component={Department} />
-              <PublicRoute exact path={"/doctor"} component={Doctor} />
-              <PublicRoute exact path={"/about"} component={About} />
-              <PublicRoute exact path={"/contact"} component={Contact} />
-              <Private exact path={"/data"} component={card} />
-              <PublicRoute restricted={true} exact path={"/primary"} component={Auth} />
+              <Route exact path={"/"} component={Home} />
+              <Route exact path={"/departments"} component={Department} />
+              <Route exact path={"/doctor"} component={Doctor} />
+              <Route exact path={"/about"} component={About} />
+              <Route exact path={"/contact"} component={Contact} />
+              <Route exact path={"/data"} component={card} />
+              <Route restricted={true} exact path={"/primary"} component={Auth} />
               {/* <Private exact path={"/Bookapointment"} component={Booklist}/> */}
-              <Private exact path={"/Bookapointment"} component={Booklist} />
-              <Private exact path={"/listapoinment"} component={Listitem} />
+              <Route exact path={"/Bookapointment"} component={Booklist} />
+              <Route exact path={"/listapoinment"} component={Listitem} />
             </Switch>
             <Footer />
             </PersistGate>
           </Provider>
         </ThemeProvider>
       </SnackbarProvider>
+      </Router>
     </>
   );
 }

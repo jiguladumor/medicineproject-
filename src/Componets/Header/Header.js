@@ -3,8 +3,10 @@ import { NavLink } from 'react-router-dom';
 import ThemeContext from '../../Context_api/ThemeContext';
 import Alert from '../Alert/Alert';
 import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux'
  
 import alert from'../Alert/Alert';
+import { Loggout } from '../../Redux/Action/AuthAction';
 
 
  
@@ -13,8 +15,19 @@ function Header(props) {
   const theme = useContext(ThemeContext);
   // console.log(theme); 
 
+  const dispatch = useDispatch();
+
   let auth = useSelector(state => state.auth)
   console.log(auth);
+
+
+   const handleLoggout =  () => { 
+      console.log("handleLoggout");
+    dispatch( Loggout());
+
+
+
+  }
     return (
     <div className="main-header">
   <div id="topbar" className= {`d-flex align-items-center fixed-top ${theme.theme}`}>
@@ -87,7 +100,7 @@ function Header(props) {
            </NavLink> 
            :
            <NavLink className="nav-link scrollto" to={"/primary"}> 
-           <span className="d-none d-md-inline">logout</span> 
+           <span className="d-none d-md-inline" onClick={ () => handleLoggout()}>logout</span> 
            </NavLink> 
 
 

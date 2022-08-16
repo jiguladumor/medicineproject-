@@ -28,6 +28,15 @@ export const AuthReducer = (state = initstate, action) => {
           error: ''
 
       }
+      case Actiontypes.LOGGOUTUSER:
+        return {
+          ...state,
+          isLoading: false,
+           user: null,
+            error: ''
+  
+        }
+  
 
     default:
       return state;

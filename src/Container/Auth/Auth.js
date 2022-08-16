@@ -3,7 +3,7 @@ import * as yup from 'yup';
 import { Form, Formik, useFormik } from 'formik';
 import { useDispatch } from 'react-redux'
 import { SignUpAPI } from '../../Common/SignUpapi';
-import { LoginAction, signupAction } from '../../Redux/Action/AuthAction';
+import { LoginAction, Signin_Google, signupAction } from '../../Redux/Action/AuthAction';
 
 
 
@@ -14,10 +14,17 @@ function Auth(props) {
     const dispatch = useDispatch()
     const handletLogin = (values) => {
         // console.log(values);
-         dispatch(LoginAction(values));
+        dispatch(LoginAction(values));
         // sessionStorage.setItem("user","123456");
         // alert(JSON.stringify(values, null, 2));
     }
+    
+    //  sign  in with google 
+      const  handleSignGoogle = () => { 
+          dispatch(Signin_Google()) ;
+        console.log("handleSignGoogle");
+
+      }
 
     const handleSignup = (values) => {
         console.log(values);
@@ -96,7 +103,7 @@ function Auth(props) {
             } else if (userType === "Signup" && !reset) {
 
                 handleSignup(values)
-                
+
             } else if (reset) {
                 handlepassword(values)
             }
@@ -139,7 +146,7 @@ function Auth(props) {
 
                                             <div className="validate" />
                                         </div>
-                                    
+
                                 }
                                 <div className="col-md-7 form-group mt-3 mt-md-0">
                                     <input
@@ -191,6 +198,11 @@ function Auth(props) {
                                             </div> :
                                             <div className="text-center">
                                                 <button type="submit">signup</button>
+                                                <button type="button" onClick={() => handleSignGoogle()} class="login-with-google-btn" >
+                                                    Sign in with Google
+                                                </button>
+
+                                               
                                             </div>
                                 }
                                 {
@@ -203,11 +215,12 @@ function Auth(props) {
                                             <div className='text-center mt-5'>
                                                 <span>create a New account</span>
                                                 <a onClick={() => { setUserType('Signup') }}>signup</a> <br></br>
-                                                <a className='mt-3' onClick={() => { setReset(true) }}>Forget password</a>
+                                                <a className='mt-3' onClick={() => { setReset(true) }}>Forget password</a> 
+                                              
                                             </div> :
                                             <div className='text-center mt-5'>
                                                 <span>already have an account ?</span>
-                                                <a onClick={() => { setUserType('Login') }} >    Login</a>
+                                                <a onClick={() => { setUserType('Login') }} >Login</a>
                                             </div>
                                 }
                             </div>

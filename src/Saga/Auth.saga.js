@@ -1,17 +1,19 @@
 import { call, put, takeEvery, all } from 'redux-saga/effects'
-import { SignUpAPI, LoginApi } from '../Common/SignUpapi';
+import { SignUpAPI, LoginApi, LogoutApi, SigninGoogleApi } from '../Common/SignUpapi';
 
 import * as Actiontypes from '../Redux/Actiontypes'
-import { emailVerifyAction, Loggieuser } from '../Redux/Action/AuthAction';
+import { emailVerifyAction, Loggieuser, Loggoutuser } from '../Redux/Action/AuthAction';
 import { RestateAlert, SetAlert } from '../Redux/Action/alertAction';
-import { history } from '../history';
+import History from '../history';
+
+
 
 
 function* Signup(action) {
    try {
       console.log("Signup");
       const user = yield call(SignUpAPI, action.payload);
-      console.log(user.payload);
+      // console.log(user.payload);
       yield put(SetAlert({ text: user.payload, color: "success" }));
       //   yield put(emailVerifyAction(user));
 
@@ -19,16 +21,16 @@ function* Signup(action) {
 
       yield put(SetAlert({ text: e.payload, color: "error" }));
       //  yield put({type: "USER_FETCH_FAILED", message: e.message});
-      console.log(e);
+      // console.log(e);
    }
 }
 function* loginup(action) {
    try {
       // console.log("Signup"); //
       const user = yield call(LoginApi, action.payload);
-      console.log(user);
+      //   console.log(user);
       yield put(Loggieuser(user.payload));
-      history.push("/")
+      History.push("/")
       yield put(SetAlert({ text: "login successfull", color: "success" }));
 
 
@@ -37,10 +39,38 @@ function* loginup(action) {
 
       yield put(SetAlert({ text: e.payload, color: "error" }));
       //  yield put({type: "USER_FETCH_FAILED", message: e.message});
-      console.log(e.payload);
+      // console.log(e.payload);
    }
 }
 
+function* logout(action) {
+   try {
+      const user = yield call(LogoutApi);
+      yield put(Loggieuser(user.payload));
+      History.push("/")
+      yield put(SetAlert({ text: "login successfull", color: "success" }));
+   }
+   catch (e) {
+      console.log(e);
+      yield put(SetAlert({ text: e.payload, color: "error" }));
+
+   }
+}
+// google sign in 
+
+function* Signgoogle(action) {
+   try {
+      const user = yield call(SigninGoogleApi);
+      yield put(Loggoutuser())
+      // History.push("/")
+      yield put(SetAlert({ text: "login successfull", color: "success" }));
+   }
+   catch (e) {
+      console.log(e);
+      yield put(SetAlert({ text: e.payload, color: "error" }));
+
+   }
+}
 
 
 //  login
@@ -56,12 +86,25 @@ function* Loginwatchup() {
    yield takeEvery(Actiontypes.LOGIN_USER, loginup);
 }
 
+function* loggoutwatchup() {
+   yield takeEvery(Actiontypes.LOGGOUT, logout)
+}
+
+// sign in google 
+
+function* Signingoogle() {
+   console.log("Signingoogle");
+   yield takeEvery(Actiontypes.SIGNIN_GOOGLE, Signgoogle);
+}
+
 
 export function* authSaga() {
    console.log("authSaga");
    yield all([
       watchsignup(),
-      Loginwatchup()
+      Loginwatchup(),
+      loggoutwatchup(),
+      Signingoogle()
    ])
 
 

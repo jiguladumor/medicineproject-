@@ -1,9 +1,19 @@
 import * as Actiontypes from '../Actiontypes';
+ 
 
+
+// sign in processs
 export const signupAction = (values) => (dispatch) => {
     console.log(values);
     dispatch({ type: Actiontypes.SIGNUP, payload: values })
 
+} 
+
+// sign-in google
+
+export const Signin_Google = () => (dispatch) => {
+    dispatch({type : Actiontypes.SIGNIN_GOOGLE})
+ 
 }
 
 export const emailVerifyAction = (values) => (dispatch) => {
@@ -22,4 +32,13 @@ export const Loggieuser = (values) =>(dispatch) => {
 }
 
  
+// logout prosess
+
+export const Loggout = () =>(dispatch) => { 
+    dispatch({type:Actiontypes.LOGGOUT })
+}
+
+  export const Loggoutuser = () => (dispatch) => {
+          dispatch({type:Actiontypes.LOGGOUTUSER})
+  }
 
