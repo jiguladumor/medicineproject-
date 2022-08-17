@@ -4,10 +4,7 @@ import { SignUpAPI, LoginApi, LogoutApi, SigninGoogleApi, ResetApi } from '../Co
 import * as Actiontypes from '../Redux/Actiontypes'
 import { emailVerifyAction, Loggieuser, Loggoutuser, ResetPassword } from '../Redux/Action/AuthAction';
 import { RestateAlert, SetAlert } from '../Redux/Action/alertAction';
-import History from '../history';
-
-
-
+import { history } from '../history';
 
 function* Signup(action) {
    try {
@@ -30,25 +27,20 @@ function* loginup(action) {
       const user = yield call(LoginApi, action.payload);
       //   console.log(user);
       yield put(Loggieuser(user.payload));
-      History.push("/")
+      history.push("/");
       yield put(SetAlert({ text: "login successfull", color: "success" }));
-
-
-
    } catch (e) {
-
       yield put(SetAlert({ text: e.payload, color: "error" }));
-      //  yield put({type: "USER_FETCH_FAILED", message: e.message});
-      // console.log(e.payload);
+      history.push("/");
    }
 }
 
 function* logout(action) {
    try {
       const user = yield call(LogoutApi);
-      yield put(Loggieuser(user.payload));
-      History.push("/")
-      yield put(SetAlert({ text: "login successfull", color: "success" }));
+      yield put(Loggoutuser());
+      history.push("/")
+      yield put(SetAlert({ text: "logout successfull", color: "success" }));
    }
    catch (e) {
       console.log(e);
@@ -62,25 +54,30 @@ function* Signgoogle(action) {
    try {
       const user = yield call(SigninGoogleApi);
       yield put(Loggoutuser())
-      // History.push("/")
+      history.push("/");
       yield put(SetAlert({ text: "login successfull", color: "success" }));
    }
    catch (e) {
       console.log(e);
-      yield put(SetAlert({ text: e.payload, color: "error" }));
+      yield put(SetAlert({ text: "login successfull", color: "success" }));
 
    }
 }
 
- function*  ResetIn() {
-   try{
-       const user = yield call(ResetApi);
-       
-   }
-   catch(e){
+function* ResetIn(action ) {
+   try {
+      const user = yield call(ResetApi, action.payload); 
+      yield put(SetAlert({ text: "plz check email id ", color: "error" }));
+      console.log(user);
+
 
    }
- }
+   catch (e) {
+      yield put(SetAlert({ text: e.payload, color: "error" }));
+      console.log(e);
+
+   }
+}
 
 //  login
 function* watchsignup() {

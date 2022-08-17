@@ -24,13 +24,12 @@ import { useHistory } from 'react-router-dom'
 import { createBrowserHistory } from 'history';
 function App() {
 
-  const historyInstance = createBrowserHistory();
-
-    const history = useHistory();
+  
+      // jignasha 
   // const store = configure();
   return (
     <>  
-    <Router  history={historyInstance} forceRefresh={true}>
+     
       <SnackbarProvider  >
         <ThemeProvider>
           <Provider store={store}>
@@ -43,7 +42,7 @@ function App() {
               <Route exact path={"/about"} component={About} />
               <Route exact path={"/contact"} component={Contact} />
               <Route exact path={"/data"} component={card} />
-              <Route restricted={true} exact path={"/primary"} component={Auth} />
+              <Route   exact path={"/primary"} component={Auth} />
               {/* <Private exact path={"/Bookapointment"} component={Booklist}/> */}
               <Route exact path={"/Bookapointment"} component={Booklist} />
               <Route exact path={"/listapoinment"} component={Listitem} />
@@ -53,7 +52,7 @@ function App() {
           </Provider>
         </ThemeProvider>
       </SnackbarProvider>
-      </Router>
+     
     </>
   );
 }

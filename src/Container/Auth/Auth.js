@@ -53,6 +53,7 @@ function Auth(props) {
     const handlepassword = (values) => {
         // alert(JSON.stringify(values.email)); 
         dispatch(ResetPassword(values))
+        console.log(values);
     }
 
     let Login = {

@@ -148,15 +148,15 @@ export const ResetApi = (values) => {
         sendPasswordResetEmail(auth, values.email)
             .then((user) => {
                  
-                resolve({ payload: user })
-                console.log(user);
+                resolve({  payload: "plzenter check  email"})
+                
             })
             .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
+                // const errorCode = error.code;
+                // const errorMessage = error.message;
                 console.log(error);
-                reject({ payload: error.code });
-
+                reject({ payload: "something went wrong " })
+                
                 // ..
             });
     })
